@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/students"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="YOUR_DB_USER"
+              password="YOUR_DB_PASSWORD"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://YOUR_HOST:3306/YOUR_DATABASE?useSSL=false&amp;serverTimezone=UTC"/>
+</Context>
