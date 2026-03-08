@@ -7,6 +7,9 @@ import jakarta.faces.context.FacesContext;
 import javax.naming.NamingException;
 
 import java.util.List;
+import java.util.ResourceBundle;
+
+
 
 public class StudentBean {
 
@@ -48,32 +51,54 @@ public class StudentBean {
     public void setEditingId(int editingId) {
         this.editingId = editingId;
     }
+    private String getMessage(String key) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msg");
+        return bundle.getString(key);
+    }
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
 
     public String addStudent() {
+        if (isEmpty(student.getLastName()) ||
+                isEmpty(student.getFirstName()) ||
+                isEmpty(student.getEmail()) ||
+                student.getBirthday() == null) {
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            getMessage("emptyField"),
+                            getMessage("emptyField")));
+            return null;
+        }
         String email = student.getEmail();
 
         if(!(email.contains("@"))) {
-            FacesContext.getCurrentInstance().addMessage("addForm",
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "invalid email", "Please enter a valid email"));
+                            getMessage("invalidEmail"),
+                            getMessage("invalidEmail")));
             return null;
 
         }
-        if(dao.studentExists(email)){
-            FacesContext.getCurrentInstance().addMessage("addForm",
+        if (dao.studentExists(student.getEmail())) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "This student is already registered.",
-                            "This student is already registered."));
+                            getMessage("studentExists"),
+                            getMessage("studentExists")));
             return null;
         }
 
         dao.addStudent(student);
-        FacesContext.getCurrentInstance().addMessage("addForm",
-                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Student added successfully.",
-                        "Student added successfully."));
         student = new Student();
         loadStudents();
+
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        getMessage("studentAdded"),
+                        getMessage("studentAdded")));
+
         return null;
     }
 
@@ -91,6 +116,7 @@ public class StudentBean {
 
     public String saveStudent() {
         dao.updateStudent(student);
+
         editingId = -1;
         student = new Student();
         loadStudents();
