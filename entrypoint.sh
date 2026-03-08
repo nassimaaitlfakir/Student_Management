@@ -14,7 +14,7 @@ cat > /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml <<EOF
               username="${DB_USER}"
               password="${DB_PASSWORD}"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&amp;serverTimezone=UTC"/>
+              url="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
 </Context>
 EOF
 
