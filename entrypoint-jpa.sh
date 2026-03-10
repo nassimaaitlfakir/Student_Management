@@ -45,5 +45,7 @@ cat > /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/META-INF/persistence.xml <<
 
 </persistence>
 EOF
+echo "Listing webapps directory:"
+ls -lah /usr/local/tomcat/webapps
 
 exec catalina.sh run
