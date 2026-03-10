@@ -11,7 +11,7 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 
 COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
-COPY entrypoint-jpa.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
