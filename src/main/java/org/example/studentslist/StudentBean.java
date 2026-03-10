@@ -15,17 +15,21 @@ public class StudentBean {
 
     private Student student = new Student();
     private List<Student> students;
-    private StudentDAO dao ;
+    //private StudentDAO dao ;// for jdbc
+    private StudentJPADAO dao;
     private int editingId = -1;
 
 
     public StudentBean() throws NamingException {
-        try {
-            dao = new StudentDAO();
+       /* try {
+            //dao = new StudentDAO();
+
             loadStudents();   // load data when page opens first time
         } catch (NamingException e) {
             throw new RuntimeException(e);
-        }
+        }*/
+        dao = new StudentJPADAO();
+        loadStudents();   // load data when page opens first time
     }
 
     public Student getStudent() {

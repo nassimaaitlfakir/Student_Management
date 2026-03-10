@@ -1,10 +1,13 @@
 package org.example.studentslist;
 
 import java.time.LocalDate;
+import jakarta.persistence.*;
 
-
+@Entity
 public class Student {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String lastName;
     private String firstName;
     private String email;
@@ -13,8 +16,7 @@ public class Student {
 
 
     public Student() {}
-    public Student(String lastName, String firstName, int age, String email,  LocalDate birthday, int id) {
-        this.id = id;
+    public Student(String lastName, String firstName, int age, String email,  LocalDate birthday) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
@@ -40,6 +42,13 @@ public class Student {
 
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id1) {
+        this.id = id1;
+    }
+
+
 }

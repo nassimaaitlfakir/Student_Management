@@ -62,7 +62,7 @@ public class StudentDAO {
             instruction.setString(2, student.getLastName());
             instruction.setString(3, student.getFirstName());
             instruction.setDate(4, java.sql.Date.valueOf(student.getBirthday()));
-            instruction.setInt(5, student.getId());
+            instruction.setLong(5, student.getId());
 
             instruction.executeUpdate();
 
@@ -80,7 +80,7 @@ public class StudentDAO {
 
             while (rs.next()) {
                 Student student = new Student();
-                student.setId(rs.getInt("id"));
+                student.setId(rs.getLong("id"));
                 student.setEmail(rs.getString("email"));
                 student.setLastName(rs.getString("lastname"));
                 student.setFirstName(rs.getString("firstname"));
